@@ -1,21 +1,19 @@
-import { getCategoryCounts } from './features/filters/utils/filter-utils';
+import { AllCardsView } from './features/flashcards/components/all-cards-view';
 import { useFlashcards } from './features/flashcards/hooks/use-flashcards';
-import { getFlashcardStatistics } from './features/statistics/utils/statistics';
 
 export default function App() {
   const { flashcards } = useFlashcards();
 
-  const stats = getFlashcardStatistics(flashcards);
-  const categories = getCategoryCounts(flashcards);
-
   return (
-    <main className="min-h-screen bg-slate-100 p-6">
-      <div className="mx-auto max-w-4xl rounded-2xl bg-white p-6 shadow-sm">
-        <h1 className="text-2xl font-bold">Flashcard App</h1>
+    <main className="min-h-screen bg-slate-100 px-4 py-6 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <header className="mb-8">
+          <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-950">
+            Flashcard App
+          </h1>
+        </header>
 
-        <pre>{JSON.stringify(stats, null, 2)}</pre>
-
-        <pre>{JSON.stringify(categories, null, 2)}</pre>
+        <AllCardsView flashcards={flashcards} />
       </div>
     </main>
   );

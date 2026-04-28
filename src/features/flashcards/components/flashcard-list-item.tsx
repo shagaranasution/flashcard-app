@@ -3,11 +3,13 @@ import type { Flashcard } from '@/shared/types/flashcard';
 
 interface FlashcardListItemProps {
   flashcard: Flashcard;
+  onEdit: (flashcard: Flashcard) => void;
   onDelete: (flashcard: Flashcard) => void;
 }
 
 export function FlashcardListItem({
   flashcard,
+  onEdit,
   onDelete,
 }: FlashcardListItemProps) {
   return (
@@ -31,7 +33,10 @@ export function FlashcardListItem({
       </p>
 
       <div className="mt-5 flex gap-2">
-        <Button variant="secondary" className="flex-1">
+        <Button
+          variant="secondary"
+          className="flex-1"
+          onClick={() => onEdit(flashcard)}>
           Edit
         </Button>
 

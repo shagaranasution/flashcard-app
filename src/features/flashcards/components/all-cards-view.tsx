@@ -11,6 +11,9 @@ interface AllCardsViewProps {
 }
 
 export function AllCardsView({ flashcards, dispatch }: AllCardsViewProps) {
+  const [editingFlashcard, setEditingFlashcard] = useState<Flashcard | null>(
+    null
+  );
   const [cardToDelete, setCardToDelete] = useState<Flashcard | null>(null);
 
   const handleConfirmDelete = () => {
@@ -18,13 +21,29 @@ export function AllCardsView({ flashcards, dispatch }: AllCardsViewProps) {
 
     dispatch({ type: 'delete', payload: { id: cardToDelete.id } });
 
+    if (editingFlashcard?.id === cardToDelete.id) {
+      setEditingFlashcard(null);
+    }
+
     setCardToDelete(null);
   };
 
   return (
     <section className="space-y-6">
       <FlashcardForm
+        editingFlashcard={editingFlashcard}
+        onCancelEdit={() => setEditingFlashcard(null)}
         onSubmit={(input) => {
+          if (editingFlashcard) {
+            dispatch({
+              type: 'update',
+              payload: { id: editingFlashcard.id, input },
+            });
+
+            setEditingFlashcard(null);
+            return;
+          }
+
           dispatch({ type: 'create', payload: input });
         }}
       />
@@ -52,6 +71,7 @@ export function AllCardsView({ flashcards, dispatch }: AllCardsViewProps) {
           <FlashcardListItem
             key={card.id}
             flashcard={card}
+            onEdit={setEditingFlashcard}
             onDelete={setCardToDelete}
           />
         ))}

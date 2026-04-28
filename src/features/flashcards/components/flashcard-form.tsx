@@ -1,4 +1,4 @@
-import type { FlashcardInput } from '@/shared/types/flashcard';
+import type { Flashcard, FlashcardInput } from '@/shared/types/flashcard';
 import { useForm } from 'react-hook-form';
 import {
   flashcardSchema,
@@ -8,12 +8,21 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Textarea } from '@/shared/components/ui/textarea';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
+import { useEffect } from 'react';
 
 interface FlashcardFormProps {
+  editingFlashcard?: Flashcard | null;
   onSubmit: (input: FlashcardInput) => void;
+  onCancelEdit?: () => void;
 }
 
-export function FlashcardForm({ onSubmit }: FlashcardFormProps) {
+export function FlashcardForm({
+  editingFlashcard = null,
+  onSubmit,
+  onCancelEdit,
+}: FlashcardFormProps) {
+  const isEditing = Boolean(editingFlashcard);
+
   const {
     register,
     handleSubmit,
@@ -28,9 +37,30 @@ export function FlashcardForm({ onSubmit }: FlashcardFormProps) {
     },
   });
 
+  useEffect(() => {
+    if (!editingFlashcard) {
+      reset({
+        question: '',
+        answer: '',
+        category: '',
+      });
+
+      return;
+    }
+
+    reset({
+      question: editingFlashcard.question,
+      answer: editingFlashcard.answer,
+      category: editingFlashcard.category,
+    });
+  }, [editingFlashcard, reset]);
+
   const handleValidSubmit = (values: FlashcardFormValues) => {
     onSubmit(values);
-    reset();
+
+    if (!isEditing) {
+      reset();
+    }
   };
 
   return (
@@ -38,9 +68,12 @@ export function FlashcardForm({ onSubmit }: FlashcardFormProps) {
       onSubmit={handleSubmit(handleValidSubmit)}
       className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
       <div>
-        <p className="text-sm font-semibold text-slate-500">Create Card</p>
+        <p className="text-sm font-semibold text-slate-500">
+          {isEditing ? 'Edit Card' : 'Create Card'}
+        </p>
+
         <h2 className="mt-1 text-2xl font-bold text-slate-950">
-          Add a new flashcard
+          {isEditing ? 'Update flashcard' : 'Add a new flashcard'}
         </h2>
       </div>
 
@@ -67,9 +100,15 @@ export function FlashcardForm({ onSubmit }: FlashcardFormProps) {
         />
       </div>
 
-      <div className="mt-6 flex justify-end">
+      <div className="mt-6 flex justify-end gap-3">
+        {isEditing ? (
+          <Button variant="secondary" onClick={onCancelEdit}>
+            Cancel
+          </Button>
+        ) : null}
+
         <Button type="submit" disabled={isSubmitting}>
-          Add Flashcard
+          {isEditing ? 'Save Changes' : 'Add Flashcard'}
         </Button>
       </div>
     </form>

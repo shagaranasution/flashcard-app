@@ -1,13 +1,23 @@
 import { Button } from '@/shared/components/ui/button';
 import type { Flashcard } from '@/shared/types/flashcard';
+import type { Dispatch } from 'react';
+import type { FlashcardAction } from '../utils/flashcard-reducer';
+import { FlashcardForm } from './flashcard-form';
 
 interface AllCardsViewProps {
   flashcards: Flashcard[];
+  dispatch: Dispatch<FlashcardAction>;
 }
 
-export function AllCardsView({ flashcards }: AllCardsViewProps) {
+export function AllCardsView({ flashcards, dispatch }: AllCardsViewProps) {
   return (
     <section className="space-y-6">
+      <FlashcardForm
+        onSubmit={(input) => {
+          dispatch({ type: 'create', payload: input });
+        }}
+      />
+
       <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
@@ -20,7 +30,9 @@ export function AllCardsView({ flashcards }: AllCardsViewProps) {
             </p>
           </div>
 
-          <Button>Create Card</Button>
+          <p className="text-sm font-semibold text-slate-500">
+            {flashcards.length} cards
+          </p>
         </div>
       </div>
 

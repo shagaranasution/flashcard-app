@@ -2,7 +2,7 @@ import { AllCardsView } from './features/flashcards/components/all-cards-view';
 import { useFlashcards } from './features/flashcards/hooks/use-flashcards';
 
 export default function App() {
-  const { flashcards } = useFlashcards();
+  const { flashcards, dispatch } = useFlashcards();
 
   return (
     <main className="min-h-screen bg-slate-100 px-4 py-6 sm:px-6 lg:px-8">
@@ -13,7 +13,7 @@ export default function App() {
           </h1>
         </header>
 
-        <AllCardsView flashcards={flashcards} />
+        <AllCardsView flashcards={flashcards} dispatch={dispatch} />
       </div>
     </main>
   );

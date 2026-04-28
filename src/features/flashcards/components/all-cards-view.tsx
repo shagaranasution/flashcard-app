@@ -1,8 +1,9 @@
-import { Button } from '@/shared/components/ui/button';
+import { useState, type Dispatch } from 'react';
 import type { Flashcard } from '@/shared/types/flashcard';
-import type { Dispatch } from 'react';
 import type { FlashcardAction } from '../utils/flashcard-reducer';
 import { FlashcardForm } from './flashcard-form';
+import { FlashcardListItem } from './flashcard-list-item';
+import { ConfirmDialog } from '@/shared/components/ui/confirm-dialog';
 
 interface AllCardsViewProps {
   flashcards: Flashcard[];
@@ -10,6 +11,16 @@ interface AllCardsViewProps {
 }
 
 export function AllCardsView({ flashcards, dispatch }: AllCardsViewProps) {
+  const [cardToDelete, setCardToDelete] = useState<Flashcard | null>(null);
+
+  const handleConfirmDelete = () => {
+    if (!cardToDelete) return;
+
+    dispatch({ type: 'delete', payload: { id: cardToDelete.id } });
+
+    setCardToDelete(null);
+  };
+
   return (
     <section className="space-y-6">
       <FlashcardForm
@@ -38,38 +49,26 @@ export function AllCardsView({ flashcards, dispatch }: AllCardsViewProps) {
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {flashcards.slice(0, 12).map((card) => (
-          <article
+          <FlashcardListItem
             key={card.id}
-            className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
-            <div className="flex items-center justify-between gap-3">
-              <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
-                {card.category}
-              </span>
-
-              <span className="text-xs font-semibold text-slate-500">
-                {card.knownCount}/5
-              </span>
-            </div>
-
-            <h3 className="mt-4 line-clamp-3 text-base font-bold text-slate-950">
-              {card.question}
-            </h3>
-
-            <p className="mt-3 line-clamp-3 text-sm text-slate-600">
-              {card.answer}
-            </p>
-
-            <div className="mt-5 flex gap-2">
-              <Button variant="secondary" className="flex-1">
-                Edit
-              </Button>
-              <Button variant="ghost" className="flex-1">
-                Delete
-              </Button>
-            </div>
-          </article>
+            flashcard={card}
+            onDelete={setCardToDelete}
+          />
         ))}
       </div>
+
+      <ConfirmDialog
+        open={Boolean(cardToDelete)}
+        title="Delete flashcard?"
+        description={
+          cardToDelete
+            ? `This will permanently delete: "${cardToDelete.question}"`
+            : ''
+        }
+        confirmLabel="Delete"
+        onClose={() => setCardToDelete(null)}
+        onConfirm={handleConfirmDelete}
+      />
     </section>
   );
 }

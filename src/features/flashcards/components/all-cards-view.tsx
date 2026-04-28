@@ -4,6 +4,11 @@ import type { FlashcardAction } from '../utils/flashcard-reducer';
 import { FlashcardForm } from './flashcard-form';
 import { FlashcardListItem } from './flashcard-list-item';
 import { ConfirmDialog } from '@/shared/components/ui/confirm-dialog';
+import {
+  INITIAL_VISIBLE_CARD_COUNT,
+  LOAD_MORE_INCREMENT,
+} from '@/shared/lib/constants';
+import { Button } from '@/shared/components/ui/button';
 
 interface AllCardsViewProps {
   flashcards: Flashcard[];
@@ -15,6 +20,12 @@ export function AllCardsView({ flashcards, dispatch }: AllCardsViewProps) {
     null
   );
   const [cardToDelete, setCardToDelete] = useState<Flashcard | null>(null);
+  const [visibleCount, setVisibleCount] = useState<number>(
+    INITIAL_VISIBLE_CARD_COUNT
+  );
+
+  const visibleFlashcards = flashcards.slice(0, visibleCount);
+  const hasMoreCards = visibleCount < flashcards.length;
 
   const handleConfirmDelete = () => {
     if (!cardToDelete) return;
@@ -26,6 +37,10 @@ export function AllCardsView({ flashcards, dispatch }: AllCardsViewProps) {
     }
 
     setCardToDelete(null);
+  };
+
+  const handleLoadMore = () => {
+    setVisibleCount((current) => current + LOAD_MORE_INCREMENT);
   };
 
   return (
@@ -66,16 +81,38 @@ export function AllCardsView({ flashcards, dispatch }: AllCardsViewProps) {
         </div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {flashcards.slice(0, 12).map((card) => (
-          <FlashcardListItem
-            key={card.id}
-            flashcard={card}
-            onEdit={setEditingFlashcard}
-            onDelete={setCardToDelete}
-          />
-        ))}
-      </div>
+      {flashcards.length === 0 ? (
+        <div className="rounded-3xl bg-white p-10 text-center shadow-sm ring-1 ring-slate-200">
+          <h3 className="text-xl font-bold text-slate-950">
+            No flashcards yet
+          </h3>
+          <p className="mx-auto mt-2 max-w-md text-sm text-slate-600">
+            Create your first flashcard using the form above. Once created, it
+            will appear here.
+          </p>
+        </div>
+      ) : (
+        <>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {visibleFlashcards.map((card) => (
+              <FlashcardListItem
+                key={card.id}
+                flashcard={card}
+                onEdit={setEditingFlashcard}
+                onDelete={setCardToDelete}
+              />
+            ))}
+          </div>
+
+          {hasMoreCards && (
+            <div className="flex justify-center">
+              <Button variant="secondary" onClick={handleLoadMore}>
+                Load More
+              </Button>
+            </div>
+          )}
+        </>
+      )}
 
       <ConfirmDialog
         open={Boolean(cardToDelete)}

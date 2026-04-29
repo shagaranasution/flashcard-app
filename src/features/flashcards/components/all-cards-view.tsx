@@ -1,4 +1,4 @@
-import { useState, type Dispatch } from 'react';
+import { useMemo, useState, type Dispatch } from 'react';
 import type { Flashcard } from '@/shared/types/flashcard';
 import type { FlashcardAction } from '../utils/flashcard-reducer';
 import { FlashcardForm } from './flashcard-form';
@@ -9,6 +9,12 @@ import {
   LOAD_MORE_INCREMENT,
 } from '@/shared/lib/constants';
 import { Button } from '@/shared/components/ui/button';
+import {
+  filterFlashcards,
+  getCategoryCounts,
+  type CategoryCount,
+} from '@/features/filters/utils/filter-utils';
+import { FilterToolbar } from '@/features/filters/components/filter-toolbar';
 
 interface AllCardsViewProps {
   flashcards: Flashcard[];
@@ -23,9 +29,47 @@ export function AllCardsView({ flashcards, dispatch }: AllCardsViewProps) {
   const [visibleCount, setVisibleCount] = useState<number>(
     INITIAL_VISIBLE_CARD_COUNT
   );
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [hideMastered, setHideMastered] = useState<boolean>(false);
 
-  const visibleFlashcards = flashcards.slice(0, visibleCount);
-  const hasMoreCards = visibleCount < flashcards.length;
+  const categories: CategoryCount[] = useMemo(
+    () => getCategoryCounts(flashcards),
+    [flashcards]
+  );
+
+  const filteredFlashcards: Flashcard[] = useMemo(
+    () =>
+      filterFlashcards(flashcards, {
+        selectedCategories,
+        hideMastered,
+      }),
+    [flashcards, selectedCategories, hideMastered]
+  );
+
+  const visibleFlashcards = filteredFlashcards.slice(0, visibleCount);
+  const hasMoreCards = visibleCount < filteredFlashcards.length;
+
+  const handleToggleCategories = (category: string) => {
+    setVisibleCount(INITIAL_VISIBLE_CARD_COUNT);
+
+    setSelectedCategories((current) => {
+      if (current.includes(category)) {
+        return current.filter((c) => c !== category);
+      }
+
+      return [...current, category];
+    });
+  };
+
+  const handleClearCategories = () => {
+    setVisibleCount(INITIAL_VISIBLE_CARD_COUNT);
+    setSelectedCategories([]);
+  };
+
+  const handleToggleHideMastered = () => {
+    setVisibleCount(INITIAL_VISIBLE_CARD_COUNT);
+    setHideMastered((current) => !current);
+  };
 
   const handleConfirmDelete = () => {
     if (!cardToDelete) return;
@@ -76,12 +120,21 @@ export function AllCardsView({ flashcards, dispatch }: AllCardsViewProps) {
           </div>
 
           <p className="text-sm font-semibold text-slate-500">
-            {flashcards.length} cards
+            {filteredFlashcards.length} of {flashcards.length} cards
           </p>
         </div>
       </div>
 
-      {flashcards.length === 0 ? (
+      <FilterToolbar
+        categories={categories}
+        selectedCategories={selectedCategories}
+        hideMastered={hideMastered}
+        onToggleCategory={handleToggleCategories}
+        onClearCategories={handleClearCategories}
+        onToggleHideMastered={handleToggleHideMastered}
+      />
+
+      {filteredFlashcards.length === 0 ? (
         <div className="rounded-3xl bg-white p-10 text-center shadow-sm ring-1 ring-slate-200">
           <h3 className="text-xl font-bold text-slate-950">
             No flashcards yet

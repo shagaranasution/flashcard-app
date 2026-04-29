@@ -15,3 +15,5 @@ export interface FlashcardInput {
 }
 
 export type MasteryStatus = 'not-started' | 'in-progress' | 'mastered';
+
+export type ViewMode = 'study' | 'all-cards';

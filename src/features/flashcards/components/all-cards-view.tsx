@@ -15,6 +15,7 @@ import {
   type CategoryCount,
 } from '@/features/filters/utils/filter-utils';
 import { FilterToolbar } from '@/features/filters/components/filter-toolbar';
+import { StatisticsPanel } from '@/features/statistics/components/statistics-panel';
 
 interface AllCardsViewProps {
   flashcards: Flashcard[];
@@ -106,6 +107,8 @@ export function AllCardsView({ flashcards, dispatch }: AllCardsViewProps) {
           dispatch({ type: 'create', payload: input });
         }}
       />
+
+      <StatisticsPanel flashcards={flashcards} />
 
       <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">

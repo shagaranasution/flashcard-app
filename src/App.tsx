@@ -4,6 +4,8 @@ import { useFlashcards } from './features/flashcards/hooks/use-flashcards';
 import type { ViewMode } from './shared/types/flashcard';
 import { Tabs } from './shared/components/ui/tabs';
 import { StudyModeView } from './features/study/components/study-mode-view';
+import { useToast } from './shared/hooks/use-toast';
+import { ToastViewport } from './shared/components/ui/toast';
 
 const viewTabs: Array<{ label: string; value: ViewMode }> = [
   { label: 'Study', value: 'study' },
@@ -13,6 +15,7 @@ const viewTabs: Array<{ label: string; value: ViewMode }> = [
 export default function App() {
   const { flashcards, dispatch } = useFlashcards();
   const [viewMode, setViewMode] = useState<ViewMode>('study');
+  const { toasts, showToast, dismissToast } = useToast();
 
   return (
     <main className="min-h-screen bg-slate-100 px-4 py-6 sm:px-6 lg:px-8">
@@ -32,9 +35,15 @@ export default function App() {
         {viewMode === 'study' ? (
           <StudyModeView flashcards={flashcards} dispatch={dispatch} />
         ) : (
-          <AllCardsView flashcards={flashcards} dispatch={dispatch} />
+          <AllCardsView
+            flashcards={flashcards}
+            dispatch={dispatch}
+            onNotify={showToast}
+          />
         )}
       </div>
+
+      <ToastViewport toasts={toasts} onDismiss={dismissToast} />
     </main>
   );
 }

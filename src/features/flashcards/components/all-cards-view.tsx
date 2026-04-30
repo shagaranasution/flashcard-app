@@ -20,9 +20,14 @@ import { StatisticsPanel } from '@/features/statistics/components/statistics-pan
 interface AllCardsViewProps {
   flashcards: Flashcard[];
   dispatch: Dispatch<FlashcardAction>;
+  onNotify: (message: string) => void;
 }
 
-export function AllCardsView({ flashcards, dispatch }: AllCardsViewProps) {
+export function AllCardsView({
+  flashcards,
+  dispatch,
+  onNotify,
+}: AllCardsViewProps) {
   const [editingFlashcard, setEditingFlashcard] = useState<Flashcard | null>(
     null
   );
@@ -77,6 +82,8 @@ export function AllCardsView({ flashcards, dispatch }: AllCardsViewProps) {
 
     dispatch({ type: 'delete', payload: { id: cardToDelete.id } });
 
+    onNotify('Flashcard deleted');
+
     if (editingFlashcard?.id === cardToDelete.id) {
       setEditingFlashcard(null);
     }
@@ -100,11 +107,13 @@ export function AllCardsView({ flashcards, dispatch }: AllCardsViewProps) {
               payload: { id: editingFlashcard.id, input },
             });
 
+            onNotify('Flashcard updated');
             setEditingFlashcard(null);
             return;
           }
 
           dispatch({ type: 'create', payload: input });
+          onNotify('Flashcard created');
         }}
       />
 

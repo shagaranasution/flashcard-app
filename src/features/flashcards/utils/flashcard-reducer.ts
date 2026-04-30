@@ -17,8 +17,8 @@ export function flashcardReducer(
       const newFlashcard: Flashcard = {
         id: crypto.randomUUID(),
         question: action.payload.question.trim(),
-        answer: action.payload.question.trim(),
-        category: action.payload.question.trim(),
+        answer: action.payload.answer.trim(),
+        category: action.payload.category.trim(),
         knownCount: 0,
       };
 

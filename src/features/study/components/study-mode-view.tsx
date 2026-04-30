@@ -1,10 +1,15 @@
 import type { Flashcard } from '@/shared/types/flashcard';
-import { useState, type Dispatch } from 'react';
+import { useMemo, useState, type Dispatch } from 'react';
 import { getCurrentCard } from '../utils/study-selectors';
 import { StudyCard } from './study-card';
 import { StudyNavigation } from './study-navigation';
 import type { FlashcardAction } from '@/features/flashcards/utils/flashcard-reducer';
 import { StudyActions } from './study-actions';
+import {
+  filterFlashcards,
+  shuffleFlashcards,
+} from '@/features/filters/utils/filter-utils';
+import { StudyToolbar } from './study-toolbar';
 
 interface StudyModeViewProps {
   flashcards: Flashcard[];
@@ -14,8 +19,32 @@ interface StudyModeViewProps {
 export function StudyModeView({ flashcards, dispatch }: StudyModeViewProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnswerVisible, setIsAnswerVisible] = useState(false);
+  const [hideMastered, setHideMastered] = useState(false);
+  const [shuffledIds, setShuffledIds] = useState<string[]>([]);
 
-  const currentCard = getCurrentCard(flashcards, currentIndex);
+  const studyCards = useMemo(() => {
+    const filtered: Flashcard[] = filterFlashcards(flashcards, {
+      selectedCategories: [],
+      hideMastered,
+    });
+
+    if (shuffledIds.length === 0) {
+      return filtered;
+    }
+
+    const orderMap = new Map<string, number>(
+      shuffledIds.map((id, index) => [id, index])
+    );
+
+    return filtered.toSorted((a, b) => {
+      const orderA = orderMap.get(a.id) ?? Number.MAX_SAFE_INTEGER;
+      const orderB = orderMap.get(b.id) ?? Number.MAX_SAFE_INTEGER;
+
+      return orderA - orderB;
+    });
+  }, [flashcards, hideMastered, shuffledIds]);
+
+  const currentCard = getCurrentCard(studyCards, currentIndex);
 
   const handlePrevious = () => {
     setCurrentIndex((index) => Math.max(index - 1, 0));
@@ -23,7 +52,7 @@ export function StudyModeView({ flashcards, dispatch }: StudyModeViewProps) {
   };
 
   const handleNext = () => {
-    setCurrentIndex((index) => Math.min(index + 1, flashcards.length - 1));
+    setCurrentIndex((index) => Math.min(index + 1, studyCards.length - 1));
     setIsAnswerVisible(false);
   };
 
@@ -49,6 +78,20 @@ export function StudyModeView({ flashcards, dispatch }: StudyModeViewProps) {
     });
   };
 
+  const handleToggleHideMastered = () => {
+    setHideMastered((current) => !current);
+    setCurrentIndex(0);
+    setIsAnswerVisible(false);
+  };
+
+  const handleShuffle = () => {
+    const shuffledCards = shuffleFlashcards(studyCards);
+
+    setShuffledIds(shuffledCards.map((card) => card.id));
+    setCurrentIndex(0);
+    setIsAnswerVisible(false);
+  };
+
   return (
     <section className="space-y-6">
       <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
@@ -61,21 +104,28 @@ export function StudyModeView({ flashcards, dispatch }: StudyModeViewProps) {
         </p>
       </div>
 
+      <StudyToolbar
+        hideMastered={hideMastered}
+        onToggleHideMastered={handleToggleHideMastered}
+        onShuffle={handleShuffle}
+      />
+
       {!currentCard ? (
         <div className="rounded-3xl bg-white p-10 text-center shadow-sm ring-1 ring-slate-200">
           <h3 className="text-xl font-bold text-slate-950">
             No cards available
           </h3>
           <p className="mx-auto mt-2 max-w-md text-sm text-slate-600">
-            Add flashcards from the All Cards view before starting a study
-            session.
+            {hideMastered
+              ? 'All available cards are mastered. Turn off “Hide mastered cards” to review them again.'
+              : 'Add flashcards from the All Cards view before starting a study session.'}
           </p>
         </div>
       ) : (
         <>
           <StudyNavigation
             currentIndex={currentIndex}
-            totalCards={flashcards.length}
+            totalCards={studyCards.length}
             onPrevious={handlePrevious}
             onNext={handleNext}
           />

@@ -41,7 +41,7 @@ export function filterFlashcards(
 export function shuffleFlashcards(flashcards: Flashcard[]): Flashcard[] {
   const copy = [...flashcards];
 
-  for (let i = copy.length; i > 0; i--) {
+  for (let i = copy.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [copy[i], copy[j]] = [copy[j], copy[i]];
   }

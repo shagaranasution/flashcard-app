@@ -1,14 +1,17 @@
 import type { Flashcard } from '@/shared/types/flashcard';
-import { useState } from 'react';
+import { useState, type Dispatch } from 'react';
 import { getCurrentCard } from '../utils/study-selectors';
 import { StudyCard } from './study-card';
 import { StudyNavigation } from './study-navigation';
+import type { FlashcardAction } from '@/features/flashcards/utils/flashcard-reducer';
+import { StudyActions } from './study-actions';
 
 interface StudyModeViewProps {
   flashcards: Flashcard[];
+  dispatch: Dispatch<FlashcardAction>;
 }
 
-export function StudyModeView({ flashcards }: StudyModeViewProps) {
+export function StudyModeView({ flashcards, dispatch }: StudyModeViewProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnswerVisible, setIsAnswerVisible] = useState(false);
 
@@ -22,6 +25,28 @@ export function StudyModeView({ flashcards }: StudyModeViewProps) {
   const handleNext = () => {
     setCurrentIndex((index) => Math.min(index + 1, flashcards.length - 1));
     setIsAnswerVisible(false);
+  };
+
+  const handleKnowThis = () => {
+    if (!currentCard) return;
+
+    dispatch({
+      type: 'incrementKnown',
+      payload: {
+        id: currentCard.id,
+      },
+    });
+  };
+
+  const handleResetProgress = () => {
+    if (!currentCard) return;
+
+    dispatch({
+      type: 'resetKnown',
+      payload: {
+        id: currentCard.id,
+      },
+    });
   };
 
   return (
@@ -53,6 +78,12 @@ export function StudyModeView({ flashcards }: StudyModeViewProps) {
             totalCards={flashcards.length}
             onPrevious={handlePrevious}
             onNext={handleNext}
+          />
+
+          <StudyActions
+            knownCount={currentCard.knownCount}
+            onKnowThis={handleKnowThis}
+            onResetProgress={handleResetProgress}
           />
 
           <StudyCard

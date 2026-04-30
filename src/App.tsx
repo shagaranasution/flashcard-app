@@ -30,7 +30,7 @@ export default function App() {
         </header>
 
         {viewMode === 'study' ? (
-          <StudyModeView flashcards={flashcards} />
+          <StudyModeView flashcards={flashcards} dispatch={dispatch} />
         ) : (
           <AllCardsView flashcards={flashcards} dispatch={dispatch} />
         )}

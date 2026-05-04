@@ -1,4 +1,5 @@
 import { Button } from '@/shared/components/ui/button';
+import { ProgressBar } from '@/shared/components/ui/progress-bar';
 
 interface StudyActionsProps {
   knownCount: number;
@@ -15,9 +16,11 @@ export function StudyActions({
 
   return (
     <div className="flex flex-col gap-3 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:flex-row sm:items-center sm:justify-between">
-      <div>
-        <p className="text-sm font-semibold text-slate-500">Mastery Progress</p>
-        <p className="mt-1 text-xl font-bold text-slate-950">{knownCount}/5</p>
+      <div className="w-full sm:max-w-xs">
+        <ProgressBar
+          value={knownCount}
+          label={knownCount >= 5 ? 'Mastered' : 'Mastery Progress'}
+        />
       </div>
 
       <div className="flex gap-3">

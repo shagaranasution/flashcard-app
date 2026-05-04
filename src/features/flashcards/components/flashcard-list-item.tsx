@@ -1,4 +1,5 @@
 import { Button } from '@/shared/components/ui/button';
+import { ProgressBar } from '@/shared/components/ui/progress-bar';
 import type { Flashcard } from '@/shared/types/flashcard';
 
 interface FlashcardListItemProps {
@@ -20,7 +21,9 @@ export function FlashcardListItem({
         </span>
 
         <span className="text-xs font-semibold text-slate-500">
-          {flashcard.knownCount}/5
+          {flashcard.knownCount === 5
+            ? 'Mastered'
+            : `${flashcard.knownCount}/5`}
         </span>
       </div>
 
@@ -31,6 +34,12 @@ export function FlashcardListItem({
       <p className="mt-3 line-clamp-3 text-sm text-slate-600">
         {flashcard.answer}
       </p>
+
+      <ProgressBar
+        value={flashcard.knownCount}
+        label="Mastery"
+        className="mt-5"
+      />
 
       <div className="mt-5 flex gap-2">
         <Button

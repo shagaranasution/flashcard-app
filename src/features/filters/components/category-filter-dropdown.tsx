@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import type { CategoryCount } from '../utils/filter-utils';
 import { Button } from '@/shared/components/ui/button';
+import { useOnClickOutside } from '@/shared/hooks/use-on-click-outside';
+import { useEscapeKey } from '@/shared/hooks/use-escape-key';
 
 interface CategoryFilterDropdownProps {
   categories: CategoryCount[];
@@ -16,6 +18,10 @@ export function CategoryFileDropdown({
   onClearCategories,
 }: CategoryFilterDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  useOnClickOutside(dropdownRef, () => setIsOpen(false), isOpen);
+  useEscapeKey(() => setIsOpen(false), isOpen);
 
   const label =
     selectedCategories.length === 0
@@ -23,7 +29,7 @@ export function CategoryFileDropdown({
       : `${selectedCategories.length} selected`;
 
   return (
-    <div className="relative">
+    <div ref={dropdownRef} className="relative">
       <Button
         variant="secondary"
         onClick={() => setIsOpen((current) => !current)}

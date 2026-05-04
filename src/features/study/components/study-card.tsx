@@ -38,7 +38,8 @@ export function StudyCard({
       </div>
 
       <p className="mt-10 text-sm font-semibold text-slate-500">
-        Click card to {isAnswerVisible ? 'show question' : 'reveal answer'}
+        Click card or press Space to{' '}
+        {isAnswerVisible ? 'show question' : 'reveal answer'}
       </p>
     </button>
   );

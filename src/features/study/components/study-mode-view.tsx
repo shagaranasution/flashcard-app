@@ -10,6 +10,7 @@ import {
   shuffleFlashcards,
 } from '@/features/filters/utils/filter-utils';
 import { StudyToolbar } from './study-toolbar';
+import { useKeyboardShortcuts } from '@/shared/hooks/use-keyboard-shortcuts';
 
 interface StudyModeViewProps {
   flashcards: Flashcard[];
@@ -91,6 +92,15 @@ export function StudyModeView({ flashcards, dispatch }: StudyModeViewProps) {
     setCurrentIndex(0);
     setIsAnswerVisible(false);
   };
+
+  useKeyboardShortcuts(
+    {
+      onNext: handleNext,
+      onPrevious: handlePrevious,
+      onToggleAnswer: () => setIsAnswerVisible((value) => !value),
+    },
+    Boolean(currentCard)
+  );
 
   return (
     <section className="space-y-6">

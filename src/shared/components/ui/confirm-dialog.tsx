@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Button } from './button';
 
 interface ConfirmDialogProps {
@@ -20,8 +20,19 @@ export function ConfirmDialog({
   onConfirm,
   onClose,
 }: ConfirmDialogProps) {
+  const cancelButtonRef = useRef<HTMLButtonElement | null>(null);
+  const previouslyFocusedElementRef = useRef<HTMLElement | null>(null);
+
   useEffect(() => {
     if (!open) return;
+
+    if (document.activeElement instanceof HTMLElement) {
+      previouslyFocusedElementRef.current = document.activeElement;
+    }
+
+    window.setTimeout(() => {
+      cancelButtonRef.current?.focus();
+    }, 0);
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -33,6 +44,7 @@ export function ConfirmDialog({
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
+      previouslyFocusedElementRef.current?.focus();
     };
   }, [open, onClose]);
 
@@ -44,6 +56,7 @@ export function ConfirmDialog({
       role="dialog"
       aria-modal="true"
       aria-labelledby="confirm-dialog-title"
+      aria-describedby="confirm-dialog-description"
       onMouseDown={onClose}>
       <div
         className="w-full max-w-md rounded-3xl bg-white p-6 shadow-xl"
@@ -54,10 +67,14 @@ export function ConfirmDialog({
           {title}
         </h2>
 
-        <p className="mt-2 text-sm text-slate-600">{description}</p>
+        <p
+          id="confirm-dialog-description"
+          className="mt-2 text-sm text-slate-600">
+          {description}
+        </p>
 
         <div className="mt-6 flex justify-end gap-3">
-          <Button variant="secondary" onClick={onClose}>
+          <Button ref={cancelButtonRef} variant="secondary" onClick={onClose}>
             {cancelLabel}
           </Button>
 

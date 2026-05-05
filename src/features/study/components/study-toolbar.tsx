@@ -12,7 +12,7 @@ export function StudyToolbar({
   onShuffle,
 }: StudyToolbarProps) {
   return (
-    <div className="flex flex-col gap-4 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-brown-950/10 sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex flex-col gap-4 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
       <label className="flex cursor-pointer items-center gap-3 text-sm font-bold text-brown-700">
         <input
           type="checkbox"

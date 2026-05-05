@@ -26,6 +26,7 @@ export function StudyCard({
             isAnswerVisible ? 'transform-[rotateY(180deg)]' : '',
           ].join(' ')}>
           <CardFace
+            tone="question"
             label="Question"
             text={flashcard.question}
             category={flashcard.category}
@@ -34,6 +35,7 @@ export function StudyCard({
           />
 
           <CardFace
+            tone="answer"
             label="Answer"
             text={flashcard.answer}
             category={flashcard.category}
@@ -48,6 +50,7 @@ export function StudyCard({
 }
 
 interface CardFaceProps {
+  tone: 'question' | 'answer';
   label: string;
   text: string;
   category: string;
@@ -57,6 +60,7 @@ interface CardFaceProps {
 }
 
 function CardFace({
+  tone,
   label,
   text,
   category,
@@ -67,18 +71,14 @@ function CardFace({
   return (
     <div
       className={[
-        'flex min-h-112 flex-col overflow-hidden rounded-3xl bg-white p-6 shadow-sm ring-1 ring-brown-950/10 sm:p-8',
-        'transition group-hover:-translate-y-0.5 group-hover:shadow-md',
+        'flex min-h-104 flex-col overflow-hidden p-6 sm:p-8 lg:min-h-120',
+        tone === 'question' ? 'bg-pink-400' : 'bg-blue-400',
         'backface-hidden',
         className,
       ].join(' ')}>
-      <div className="flex items-center justify-between gap-3">
-        <span className="rounded-full bg-yellow-500 px-3 py-1 text-xs font-bold text-brown-950">
+      <div className="flex items-center justify-center">
+        <span className="rounded-full bg-white px-3 py-2 text-xs font-bold text-brown-950 ring-1 ring-brown-950/10">
           {category}
-        </span>
-
-        <span className="text-xs font-bold text-brown-700">
-          {knownCount === 5 ? 'Mastered' : `${knownCount}/5`}
         </span>
       </div>
 
@@ -87,7 +87,7 @@ function CardFace({
           {label}
         </p>
 
-        <p className="mt-4 text-xl font-bold leading-relaxed text-brown-950 sm:text-2xl">
+        <p className="mt-4 max-w-3xl text-3xl font-bold leading-tight text-brown-950 sm:text-4xl lg:text-5xl">
           {text}
         </p>
       </div>

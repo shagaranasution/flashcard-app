@@ -18,11 +18,11 @@ export function StatisticsPanel({ flashcards }: StatisticsPanelProps) {
         </h2>
       </div>
 
-      <div className="mt-5 grid grid-cols-2 gap-3 sm:gap-4">
+      <div className="mt-5 grid gap-3">
         <StatisticsCard label="Total Cards" value={stats.total} />
-        <StatisticsCard label="Not Started" value={stats.notStarted} />
-        <StatisticsCard label="In Progress" value={stats.inProgress} />
         <StatisticsCard label="Mastered" value={stats.mastered} />
+        <StatisticsCard label="In Progress" value={stats.inProgress} />
+        <StatisticsCard label="Not Started" value={stats.notStarted} />
       </div>
     </section>
   );

@@ -20,11 +20,15 @@ export default function App() {
   return (
     <main className="min-h-screen bg-cream-100 px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
       <div className="mx-auto max-w-7xl">
-        <header className="mb-6 flex flex-col gap-5 rounded-3xl px-5 py-5 text-brown-950 sm:mb-8 sm:px-6 sm:py-6 lg:flex-row lg:items-center lg:justify-between">
+        <header className="mb-6 flex flex-col gap-5 rounded-3xl py-5 text-brown-950 sm:mb-8 sm:py-6 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <h1 className="mt-2 text-3xl font-bold tracking-tight">
               Flashcard
             </h1>
+            <p className="mt-2 max-w-2xl text-sm font-medium text-brown-700">
+              Reveal answers, mark what you know, and focus on cards that still
+              need practice.
+            </p>
           </div>
 
           <Tabs items={viewTabs} value={viewMode} onChange={setViewMode} />

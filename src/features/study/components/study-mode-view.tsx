@@ -103,56 +103,66 @@ export function StudyModeView({ flashcards, dispatch }: StudyModeViewProps) {
   );
 
   return (
-    <section className="space-y-6">
-      <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-brown-950/10">
-        <p className="text-sm font-bold text-brown-700">Study Mode</p>
-        <h2 className="mt-1 text-2xl font-bold text-brown-950">
-          Practice one card at a time
-        </h2>
-        <p className="mt-2 max-w-2xl text-sm font-medium text-brown-700">
-          Review flashcards, reveal answers, and track your mastery progress.
-        </p>
-      </div>
-
-      <StudyToolbar
-        hideMastered={hideMastered}
-        onToggleHideMastered={handleToggleHideMastered}
-        onShuffle={handleShuffle}
-      />
-
-      {!currentCard ? (
-        <div className="rounded-3xl bg-white p-10 text-center shadow-sm ring-1 ring-brown-950/10">
-          <h3 className="text-xl font-bold text-brown-950">
-            No cards available
-          </h3>
-          <p className="mx-auto mt-2 max-w-md text-sm font-medium text-brown-700">
-            {hideMastered
-              ? 'All available cards are mastered. Turn off “Hide mastered cards” to review them again.'
-              : 'Add flashcards from the All Cards view before starting a study session.'}
+    <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
+      <div className="space-y-6">
+        {/* Header Card Section */}
+        <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-brown-950/10">
+          <p className="text-sm font-bold text-brown-700">Study Mode</p>
+          <h2 className="mt-1 text-2xl font-bold text-brown-950">
+            Practice one card at a time
+          </h2>
+          <p className="mt-2 max-w-2xl text-sm font-medium text-brown-700">
+            Review flashcards, reveal answers, and track your mastery progress.
           </p>
         </div>
-      ) : (
-        <>
-          <StudyNavigation
-            currentIndex={currentIndex}
-            totalCards={studyCards.length}
-            onPrevious={handlePrevious}
-            onNext={handleNext}
-          />
 
-          <StudyActions
-            knownCount={currentCard.knownCount}
-            onKnowThis={handleKnowThis}
-            onResetProgress={handleResetProgress}
-          />
-
+        {/* Study Card Section */}
+        {!currentCard ? (
+          <div className="rounded-3xl bg-white p-10 text-center shadow-sm ring-1 ring-brown-950/10">
+            <div className="rounded-3xl bg-white p-10 text-center shadow-sm ring-1 ring-brown-950/10">
+              <h3 className="text-xl font-bold text-brown-950">
+                No cards available
+              </h3>
+              <p className="mx-auto mt-2 max-w-md text-sm font-medium text-brown-700">
+                {hideMastered
+                  ? 'All available cards are mastered. Turn off “Hide mastered cards” to review them again.'
+                  : 'Add flashcards from the All Cards view before starting a study session.'}
+              </p>
+            </div>
+          </div>
+        ) : (
           <StudyCard
             flashcard={currentCard}
             isAnswerVisible={isAnswerVisible}
             onToggleAnswer={() => setIsAnswerVisible((value) => !value)}
           />
-        </>
-      )}
+        )}
+      </div>
+
+      <div className="space-y-6 lg:sticky lg:top-8">
+        <StudyToolbar
+          hideMastered={hideMastered}
+          onToggleHideMastered={handleToggleHideMastered}
+          onShuffle={handleShuffle}
+        />
+
+        {currentCard && (
+          <>
+            <StudyNavigation
+              currentIndex={currentIndex}
+              totalCards={studyCards.length}
+              onPrevious={handlePrevious}
+              onNext={handleNext}
+            />
+
+            <StudyActions
+              knownCount={currentCard.knownCount}
+              onKnowThis={handleKnowThis}
+              onResetProgress={handleResetProgress}
+            />
+          </>
+        )}
+      </div>
     </section>
   );
 }

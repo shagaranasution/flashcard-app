@@ -66,7 +66,7 @@ export function FlashcardForm({
   return (
     <form
       onSubmit={handleSubmit(handleValidSubmit)}
-      className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-brown-950/10">
+      className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-brown-950/10 sm:p-6">
       <div>
         <p className="text-sm font-bold text-brown-700">
           {isEditing ? 'Edit Card' : 'Create Card'}
@@ -77,7 +77,7 @@ export function FlashcardForm({
         </h2>
       </div>
 
-      <div className="mt-6 grid gap-4">
+      <div className="mt-5 grid gap-4 sm:mt-6">
         <Textarea
           label="Question"
           placeholder="Example: What does HTML stand for?"

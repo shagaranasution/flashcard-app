@@ -96,88 +96,92 @@ export function AllCardsView({
   };
 
   return (
-    <section className="space-y-6">
-      <FlashcardForm
-        editingFlashcard={editingFlashcard}
-        onCancelEdit={() => setEditingFlashcard(null)}
-        onSubmit={(input) => {
-          if (editingFlashcard) {
-            dispatch({
-              type: 'update',
-              payload: { id: editingFlashcard.id, input },
-            });
+    <section className="grid gap-6 lg:grid-cols-[minmax(0,420px)_1fr] lg:items-start">
+      <div className="space-y-6 lg:sticky lg:top-8">
+        <FlashcardForm
+          editingFlashcard={editingFlashcard}
+          onCancelEdit={() => setEditingFlashcard(null)}
+          onSubmit={(input) => {
+            if (editingFlashcard) {
+              dispatch({
+                type: 'update',
+                payload: { id: editingFlashcard.id, input },
+              });
 
-            onNotify('Flashcard updated');
-            setEditingFlashcard(null);
-            return;
-          }
+              onNotify('Flashcard updated');
+              setEditingFlashcard(null);
+              return;
+            }
 
-          dispatch({ type: 'create', payload: input });
-          onNotify('Flashcard created');
-        }}
-      />
+            dispatch({ type: 'create', payload: input });
+            onNotify('Flashcard created');
+          }}
+        />
 
-      <StatisticsPanel flashcards={flashcards} />
-
-      <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-brown-950/10">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-          <div>
-            <p className="text-sm font-semibold text-brown-700">All Cards</p>
-            <h2 className="mt-1 text-2xl font-bold text-brown-950">
-              Manage your flashcards
-            </h2>
-            <p className="mt-2 max-w-2xl text-sm font-medium text-brown-700">
-              Create, edit, delete, filter, and review your saved flashcards.
-            </p>
-          </div>
-
-          <p className="text-sm font-bold text-brown-700">
-            {filteredFlashcards.length} of {flashcards.length} cards
-          </p>
-        </div>
+        <StatisticsPanel flashcards={flashcards} />
       </div>
 
-      <FilterToolbar
-        categories={categories}
-        selectedCategories={selectedCategories}
-        hideMastered={hideMastered}
-        onToggleCategory={handleToggleCategories}
-        onClearCategories={handleClearCategories}
-        onToggleHideMastered={handleToggleHideMastered}
-      />
-
-      {filteredFlashcards.length === 0 ? (
-        <div className="rounded-3xl bg-white p-10 text-center shadow-sm ring-1 ring-brown-950/10">
-          <h3 className="text-xl font-bold text-brown-950">
-            No flashcards found
-          </h3>
-          <p className="mx-auto mt-2 max-w-md text-sm font-medium text-brown-700">
-            Try adjusting your filters or create a new flashcard using the form
-            above.
-          </p>
-        </div>
-      ) : (
-        <>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {visibleFlashcards.map((card) => (
-              <FlashcardListItem
-                key={card.id}
-                flashcard={card}
-                onEdit={setEditingFlashcard}
-                onDelete={setCardToDelete}
-              />
-            ))}
-          </div>
-
-          {hasMoreCards && (
-            <div className="flex justify-center">
-              <Button variant="secondary" onClick={handleLoadMore}>
-                Load More
-              </Button>
+      <div className="space-y-6">
+        <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-brown-950/10">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <p className="text-sm font-semibold text-brown-700">All Cards</p>
+              <h2 className="mt-1 text-2xl font-bold text-brown-950">
+                Manage your flashcards
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm font-medium text-brown-700">
+                Create, edit, delete, filter, and review your saved flashcards.
+              </p>
             </div>
-          )}
-        </>
-      )}
+
+            <p className="text-sm font-bold text-brown-700">
+              {filteredFlashcards.length} of {flashcards.length} cards
+            </p>
+          </div>
+        </div>
+
+        <FilterToolbar
+          categories={categories}
+          selectedCategories={selectedCategories}
+          hideMastered={hideMastered}
+          onToggleCategory={handleToggleCategories}
+          onClearCategories={handleClearCategories}
+          onToggleHideMastered={handleToggleHideMastered}
+        />
+
+        {filteredFlashcards.length === 0 ? (
+          <div className="rounded-3xl bg-white p-10 text-center shadow-sm ring-1 ring-brown-950/10">
+            <h3 className="text-xl font-bold text-brown-950">
+              No flashcards found
+            </h3>
+            <p className="mx-auto mt-2 max-w-md text-sm font-medium text-brown-700">
+              Try adjusting your filters or create a new flashcard using the
+              form above.
+            </p>
+          </div>
+        ) : (
+          <>
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              {visibleFlashcards.map((card) => (
+                <FlashcardListItem
+                  key={card.id}
+                  flashcard={card}
+                  onEdit={setEditingFlashcard}
+                  onDelete={setCardToDelete}
+                />
+              ))}
+            </div>
+
+            {hasMoreCards && (
+              <div className="flex justify-center">
+                <Button variant="secondary" onClick={handleLoadMore}>
+                  Load More
+                </Button>
+              </div>
+            )}
+          </>
+        )}
+      </div>
 
       <ConfirmDialog
         open={Boolean(cardToDelete)}

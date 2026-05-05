@@ -67,7 +67,7 @@ function CardFace({
   return (
     <div
       className={[
-        'flex min-h-112 flex-col overflow-hidden rounded-3xl bg-white p-8 shadow-sm ring-1 ring-brown-950/10',
+        'flex min-h-112 flex-col overflow-hidden rounded-3xl bg-white p-6 shadow-sm ring-1 ring-brown-950/10 sm:p-8',
         'transition group-hover:-translate-y-0.5 group-hover:shadow-md',
         'backface-hidden',
         className,
@@ -87,7 +87,7 @@ function CardFace({
           {label}
         </p>
 
-        <p className="mt-4 text-2xl font-bold leading-relaxed text-brown-950">
+        <p className="mt-4 text-xl font-bold leading-relaxed text-brown-950 sm:text-2xl">
           {text}
         </p>
       </div>

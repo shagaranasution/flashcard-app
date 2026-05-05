@@ -25,7 +25,7 @@ export function StudyActions({
 
       <div className="flex gap-3">
         <Button onClick={onKnowThis} disabled={isMastered}>
-          {isMastered ? 'Mastered' : 'I Know This'}
+          {isMastered ? 'Mastered' : 'I know this'}
         </Button>
 
         <Button

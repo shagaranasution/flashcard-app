@@ -112,7 +112,8 @@ export function StudyModeView({ flashcards, dispatch }: StudyModeViewProps) {
             Practice one card at a time
           </h2>
           <p className="mt-2 max-w-2xl text-sm font-medium text-brown-700">
-            Review flashcards, reveal answers, and track your mastery progress.
+            Reveal answers, mark what you know, and focus on cards that still
+            need practice.
           </p>
         </div>
 
@@ -121,12 +122,15 @@ export function StudyModeView({ flashcards, dispatch }: StudyModeViewProps) {
           <div className="rounded-3xl bg-white p-10 text-center shadow-sm ring-1 ring-brown-950/10">
             <div className="rounded-3xl bg-white p-10 text-center shadow-sm ring-1 ring-brown-950/10">
               <h3 className="text-xl font-bold text-brown-950">
-                No cards available
+                {flashcards.length === 0
+                  ? 'No flashcards yet'
+                  : 'No cards to study'}
               </h3>
+
               <p className="mx-auto mt-2 max-w-md text-sm font-medium text-brown-700">
-                {hideMastered
-                  ? 'All available cards are mastered. Turn off “Hide mastered cards” to review them again.'
-                  : 'Add flashcards from the All Cards view before starting a study session.'}
+                {flashcards.length === 0
+                  ? 'Go to All Cards and create your first flashcard before starting a study session.'
+                  : 'All available cards are currently hidden because they are mastered. Turn off “Hide mastered cards” to review them again.'}
               </p>
             </div>
           </div>

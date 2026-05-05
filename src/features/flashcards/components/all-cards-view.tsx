@@ -130,7 +130,8 @@ export function AllCardsView({
                 Manage your flashcards
               </h2>
               <p className="mt-2 max-w-2xl text-sm font-medium text-brown-700">
-                Create, edit, delete, filter, and review your saved flashcards.
+                Browse your cards, update details, and keep your study set
+                organized.
               </p>
             </div>
 
@@ -154,9 +155,11 @@ export function AllCardsView({
             <h3 className="text-xl font-bold text-brown-950">
               No flashcards found
             </h3>
+
             <p className="mx-auto mt-2 max-w-md text-sm font-medium text-brown-700">
-              Try adjusting your filters or create a new flashcard using the
-              form above.
+              {flashcards.length === 0
+                ? 'Create your first flashcard using the form. It will be saved automatically in this browser.'
+                : 'No cards match your current filters. Try changing the category filter or showing mastered cards again.'}
             </p>
           </div>
         ) : (

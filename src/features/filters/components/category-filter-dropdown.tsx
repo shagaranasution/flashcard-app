@@ -3,12 +3,15 @@ import type { CategoryCount } from '../utils/filter-utils';
 import { Button } from '@/shared/components/ui/button';
 import { useOnClickOutside } from '@/shared/hooks/use-on-click-outside';
 import { useEscapeKey } from '@/shared/hooks/use-escape-key';
+import { cn } from '@/shared/lib/cn';
 
+type DropdownAlign = 'left' | 'right';
 interface CategoryFilterDropdownProps {
   categories: CategoryCount[];
   selectedCategories: string[];
   onToggleCategory: (category: string) => void;
   onClearCategories: () => void;
+  align?: DropdownAlign;
 }
 
 export function CategoryFileDropdown({
@@ -16,6 +19,7 @@ export function CategoryFileDropdown({
   selectedCategories,
   onToggleCategory,
   onClearCategories,
+  align = 'right',
 }: CategoryFilterDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -38,7 +42,11 @@ export function CategoryFileDropdown({
       </Button>
 
       {isOpen && (
-        <div className="absolute right-0 z-20 mt-2 w-72 rounded-2xl bg-white p-3 shadow-xl ring-1 ring-brown-950/10">
+        <div
+          className={cn(
+            'absolute z-20 mt-2 w-72 rounded-2xl bg-white p-3 shadow-xl ring-1 ring-brown-950/10',
+            align === 'right' ? 'right-0' : 'left-0'
+          )}>
           <button
             type="button"
             onClick={onClearCategories}

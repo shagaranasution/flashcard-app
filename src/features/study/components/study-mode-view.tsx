@@ -7,6 +7,7 @@ import type { FlashcardAction } from '@/features/flashcards/utils/flashcard-redu
 import { StudyActions } from './study-actions';
 import {
   filterFlashcards,
+  getCategoryCounts,
   shuffleFlashcards,
 } from '@/features/filters/utils/filter-utils';
 import { StudyToolbar } from './study-toolbar';
@@ -22,11 +23,14 @@ export function StudyModeView({ flashcards, dispatch }: StudyModeViewProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnswerVisible, setIsAnswerVisible] = useState(false);
   const [hideMastered, setHideMastered] = useState(false);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [shuffledIds, setShuffledIds] = useState<string[]>([]);
+
+  const categories = useMemo(() => getCategoryCounts(flashcards), [flashcards]);
 
   const studyCards = useMemo(() => {
     const filtered: Flashcard[] = filterFlashcards(flashcards, {
-      selectedCategories: [],
+      selectedCategories,
       hideMastered,
     });
 
@@ -44,9 +48,28 @@ export function StudyModeView({ flashcards, dispatch }: StudyModeViewProps) {
 
       return orderA - orderB;
     });
-  }, [flashcards, hideMastered, shuffledIds]);
+  }, [flashcards, selectedCategories, hideMastered, shuffledIds]);
 
   const currentCard = getCurrentCard(studyCards, currentIndex);
+
+  const handleToggleCategory = (category: string) => {
+    setSelectedCategories((current) => {
+      if (current.includes(category)) {
+        return current.filter((item) => item !== category);
+      }
+
+      return [...current, category];
+    });
+
+    setCurrentIndex(0);
+    setIsAnswerVisible(false);
+  };
+
+  const handleClearCategories = () => {
+    setSelectedCategories([]);
+    setCurrentIndex(0);
+    setIsAnswerVisible(false);
+  };
 
   const handlePrevious = () => {
     setCurrentIndex((index) => Math.max(index - 1, 0));
@@ -107,7 +130,11 @@ export function StudyModeView({ flashcards, dispatch }: StudyModeViewProps) {
     <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start">
       <div className="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-brown-950/10">
         <StudyToolbar
+          categories={categories}
+          selectedCategories={selectedCategories}
           hideMastered={hideMastered}
+          onToggleCategory={handleToggleCategory}
+          onClearCategories={handleClearCategories}
           onToggleHideMastered={handleToggleHideMastered}
           onShuffle={handleShuffle}
         />
@@ -125,7 +152,7 @@ export function StudyModeView({ flashcards, dispatch }: StudyModeViewProps) {
             <p className="mx-auto mt-2 max-w-md text-sm font-medium text-brown-700">
               {flashcards.length === 0
                 ? 'Go to All Cards and create your first flashcard before starting a study session.'
-                : 'All available cards are currently hidden because they are mastered. Turn off “Hide mastered cards” to review them again.'}
+                : 'No cards match your current study filters. Try changing the category filter or showing mastered cards again.'}
             </p>
           </div>
         ) : (

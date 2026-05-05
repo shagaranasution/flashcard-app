@@ -17,7 +17,7 @@ export function Tabs<TValue extends string>({
   onChange,
 }: TabsProps<TValue>) {
   return (
-    <div className="inline-flex rounded-2xl bg-slate-200 p-1">
+    <div className="inline-flex rounded-2xl bg-white p-1">
       {items.map((item) => {
         const isActive = item.value === value;
 
@@ -28,11 +28,11 @@ export function Tabs<TValue extends string>({
             aria-pressed={isActive}
             onClick={() => onChange(item.value)}
             className={cn(
-              'rounded-xl px-4 py-2 text-sm font-semibold transition',
-              'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900',
+              'rounded-xl px-4 py-2 text-sm font-bold transition',
+              'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-500',
               isActive
-                ? 'bg-white text-slate-950 shadow-sm'
-                : 'text-slate-600 hover:text-slate-950'
+                ? 'bg-yellow-500 text-brown-950'
+                : 'text-brown-950 hover:text-white'
             )}>
             {item.label}
           </button>

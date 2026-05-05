@@ -18,9 +18,9 @@ export default function App() {
   const { toasts, showToast, dismissToast } = useToast();
 
   return (
-    <main className="min-h-screen bg-cream-100 px-4 py-section">
+    <main className="min-h-screen bg-cream-100 px-4 py-6 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
-        <header className="mb-8 flex flex-col gap-5 rounded-[2rem] px-6 py-6 text-black sm:flex-row sm:items-center sm:justify-between">
+        <header className="mb-8 flex flex-col gap-5 rounded-3xl px-6 py-6 text-brown-950 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="mt-2 text-3xl font-bold tracking-tight">
               Flashcard

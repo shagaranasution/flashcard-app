@@ -19,18 +19,21 @@
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
   --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
-  --radius-2xl: 2rem;
-  --radius-3xl: 2.5rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
 
   --spacing-card: 1.5rem;
   --spacing-section: 2rem;
   --spacing-page: 4rem;
 }
 
+html {
+  font-family: var(--font-sans);
+}
+
 body {
   margin: 0;
-  font-family: var(--font-sans);
   background: var(--color-cream-100);
   color: var(--color-brown-950);
 }

@@ -18,7 +18,7 @@ export function ProgressBar({
   return (
     <div className={cn('space-y-2', className)}>
       {label ? (
-        <div className="flex items-center justify-between text-xs font-semibold text-slate-500">
+        <div className="flex items-center justify-between text-xs font-bold text-brown-700">
           <span>{label}</span>
           <span>
             {value}/{max}
@@ -26,9 +26,9 @@ export function ProgressBar({
         </div>
       ) : null}
 
-      <div className="h-2 overflow-hidden rounded-full bg-slate-200">
+      <div className="h-2 overflow-hidden rounded-full bg-brown-950/10">
         <div
-          className="h-full rounded-full bg-slate-900 transition-all duration-300"
+          className="h-full rounded-full bg-brown-950 transition-all duration-300"
           style={{ width: `${percentage}%` }}
         />
       </div>

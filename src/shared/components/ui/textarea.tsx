@@ -18,9 +18,7 @@ export function Textarea({
 
   return (
     <div className="space-y-1.5">
-      <label
-        htmlFor={textareaId}
-        className="text-sm font-semibold text-slate-900">
+      <label htmlFor={textareaId} className="text-sm font-bold text-brown-950">
         {label}
       </label>
 
@@ -29,17 +27,18 @@ export function Textarea({
         aria-invalid={Boolean(error)}
         aria-describedby={errorId}
         className={cn(
-          'min-h-28 w-full resize-y rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900',
-          'placeholder:text-slate-400',
-          'focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/10',
-          error && 'border-red-500 focus:border-red-500 focus:ring-red-500/10',
+          'min-h-28 w-full resize-y rounded-xl border border-brown-950/20 bg-white px-4 py-3 text-sm font-medium text-brown-950',
+          'placeholder:text-brown-700/50',
+          'focus:border-brown-950 focus:outline-none focus:ring-2 focus:ring-yellow-500/40',
+          error &&
+            'border-pink-700 focus:border-pink-700 focus:ring-pink-700/20',
           className
         )}
         {...props}
       />
 
       {error ? (
-        <p id={errorId} className="text-sm text-red-600">
+        <p id={errorId} className="text-sm text-pink-700">
           {error}
         </p>
       ) : null}

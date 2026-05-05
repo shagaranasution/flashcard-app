@@ -10,7 +10,7 @@ export function StatisticsPanel({ flashcards }: StatisticsPanelProps) {
   const stats = getFlashcardStatistics(flashcards);
 
   return (
-    <section className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+    <section className="rounded-3xl bg-white p-card shadow-sm ring-1 ring-slate-200">
       <div>
         <p className="text-sm font-semibold text-slate-500">Statistics</p>
         <h2 className="mt-1 text-xl font-bold text-slate-950">

@@ -18,18 +18,16 @@ export default function App() {
   const { toasts, showToast, dismissToast } = useToast();
 
   return (
-    <main className="min-h-screen bg-slate-100 px-4 py-6 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-cream-100 px-4 py-section">
       <div className="mx-auto max-w-7xl">
-        <header className="mb-8">
-          <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-950">
-            Flashcard App
-          </h1>
+        <header className="mb-8 flex flex-col gap-5 rounded-[2rem] px-6 py-6 text-black sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h1 className="mt-2 text-3xl font-bold tracking-tight">
+              Flashcard
+            </h1>
+          </div>
 
-          <Tabs
-            items={viewTabs}
-            value={viewMode}
-            onChange={(value) => setViewMode(value)}
-          />
+          <Tabs items={viewTabs} value={viewMode} onChange={setViewMode} />
         </header>
 
         {viewMode === 'study' ? (

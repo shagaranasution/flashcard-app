@@ -174,7 +174,7 @@ export function AllCardsView({
 
             {hasMoreCards && (
               <div className="flex justify-center">
-                <Button variant="secondary" onClick={handleLoadMore}>
+                <Button variant="ghost" onClick={handleLoadMore}>
                   Load More
                 </Button>
               </div>

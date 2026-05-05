@@ -16,7 +16,7 @@ export function FlashcardListItem({
   return (
     <article className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-brown-950/10 transition hover:-translate-y-0.5 hover:shadow-md">
       <div className="flex items-center justify-between gap-3">
-        <span className="rounded-full bg-yellow-500 px-3 py-1 text-xs font-bold text-brown-950">
+        <span className="rounded-full bg-white px-3 py-1 text-xs font-bold text-brown-950 ring-1 ring-brown-950/30">
           {flashcard.category}
         </span>
 

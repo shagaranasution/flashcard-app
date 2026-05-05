@@ -38,15 +38,15 @@ export function CategoryFileDropdown({
       </Button>
 
       {isOpen && (
-        <div className="absolute right-0 z-20 mt-2 w-72 rounded-2xl bg-white p-3 shadow-xl ring-1 ring-slate-200">
+        <div className="absolute right-0 z-20 mt-2 w-72 rounded-2xl bg-white p-3 shadow-xl ring-1 ring-brown-950/10">
           <button
             type="button"
             onClick={onClearCategories}
-            className="w-full rounded-xl px-3 py-2 text-left text-sm font-semibold text-slate-700 hover:bg-slate-100">
+            className="w-full rounded-xl px-3 py-2 text-left text-sm font-bold text-brown-700 hover:bg-cream-100">
             All Categories
           </button>
 
-          <div className="my-2 h-px bg-slate-200" />
+          <div className="my-2 h-px bg-brown-950/10" />
 
           <div className="max-h-72 overflow-auto">
             {categories.map((item) => {
@@ -55,7 +55,7 @@ export function CategoryFileDropdown({
               return (
                 <label
                   key={item.category}
-                  className="flex cursor-pointer items-center justify-between gap-3 rounded-xl px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100">
+                  className="flex cursor-pointer items-center justify-between gap-3 rounded-xl px-3 py-2 text-sm font-bold text-brown-700 hover:bg-cream-100">
                   <span>
                     {item.category} ({item.count})
                   </span>
@@ -64,7 +64,7 @@ export function CategoryFileDropdown({
                     type="checkbox"
                     checked={checked}
                     onChange={() => onToggleCategory(item.category)}
-                    className="h-4 w-4 rounded border-slate-300"
+                    className="h-4 w-4 rounded border-slate-300 accent-brown-950"
                   />
                 </label>
               );

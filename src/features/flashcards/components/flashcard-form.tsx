@@ -66,13 +66,13 @@ export function FlashcardForm({
   return (
     <form
       onSubmit={handleSubmit(handleValidSubmit)}
-      className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+      className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-brown-950/10">
       <div>
-        <p className="text-sm font-semibold text-slate-500">
+        <p className="text-sm font-bold text-brown-700">
           {isEditing ? 'Edit Card' : 'Create Card'}
         </p>
 
-        <h2 className="mt-1 text-2xl font-bold text-slate-950">
+        <h2 className="mt-1 text-2xl font-bold text-brown-950">
           {isEditing ? 'Update flashcard' : 'Add a new flashcard'}
         </h2>
       </div>

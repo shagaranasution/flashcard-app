@@ -119,19 +119,19 @@ export function AllCardsView({
 
       <StatisticsPanel flashcards={flashcards} />
 
-      <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+      <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-brown-950/10">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <p className="text-sm font-semibold text-slate-500">All Cards</p>
-            <h2 className="mt-1 text-2xl font-bold text-slate-950">
+            <p className="text-sm font-semibold text-brown-700">All Cards</p>
+            <h2 className="mt-1 text-2xl font-bold text-brown-950">
               Manage your flashcards
             </h2>
-            <p className="mt-2 max-w-2xl text-sm text-slate-600">
+            <p className="mt-2 max-w-2xl text-sm font-medium text-brown-700">
               Create, edit, delete, filter, and review your saved flashcards.
             </p>
           </div>
 
-          <p className="text-sm font-semibold text-slate-500">
+          <p className="text-sm font-bold text-brown-700">
             {filteredFlashcards.length} of {flashcards.length} cards
           </p>
         </div>
@@ -147,13 +147,13 @@ export function AllCardsView({
       />
 
       {filteredFlashcards.length === 0 ? (
-        <div className="rounded-3xl bg-white p-10 text-center shadow-sm ring-1 ring-slate-200">
-          <h3 className="text-xl font-bold text-slate-950">
-            No flashcards yet
+        <div className="rounded-3xl bg-white p-10 text-center shadow-sm ring-1 ring-brown-950/10">
+          <h3 className="text-xl font-bold text-brown-950">
+            No flashcards found
           </h3>
-          <p className="mx-auto mt-2 max-w-md text-sm text-slate-600">
-            Create your first flashcard using the form above. Once created, it
-            will appear here.
+          <p className="mx-auto mt-2 max-w-md text-sm font-medium text-brown-700">
+            Try adjusting your filters or create a new flashcard using the form
+            above.
           </p>
         </div>
       ) : (

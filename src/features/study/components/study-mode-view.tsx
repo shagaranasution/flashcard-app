@@ -104,12 +104,12 @@ export function StudyModeView({ flashcards, dispatch }: StudyModeViewProps) {
 
   return (
     <section className="space-y-6">
-      <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
-        <p className="text-sm font-semibold text-slate-500">Study Mode</p>
-        <h2 className="mt-1 text-2xl font-bold text-slate-950">
+      <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-brown-950/10">
+        <p className="text-sm font-bold text-brown-700">Study Mode</p>
+        <h2 className="mt-1 text-2xl font-bold text-brown-950">
           Practice one card at a time
         </h2>
-        <p className="mt-2 max-w-2xl text-sm text-slate-600">
+        <p className="mt-2 max-w-2xl text-sm font-medium text-brown-700">
           Review flashcards, reveal answers, and track your mastery progress.
         </p>
       </div>
@@ -121,11 +121,11 @@ export function StudyModeView({ flashcards, dispatch }: StudyModeViewProps) {
       />
 
       {!currentCard ? (
-        <div className="rounded-3xl bg-white p-10 text-center shadow-sm ring-1 ring-slate-200">
-          <h3 className="text-xl font-bold text-slate-950">
+        <div className="rounded-3xl bg-white p-10 text-center shadow-sm ring-1 ring-brown-950/10">
+          <h3 className="text-xl font-bold text-brown-950">
             No cards available
           </h3>
-          <p className="mx-auto mt-2 max-w-md text-sm text-slate-600">
+          <p className="mx-auto mt-2 max-w-md text-sm font-medium text-brown-700">
             {hideMastered
               ? 'All available cards are mastered. Turn off “Hide mastered cards” to review them again.'
               : 'Add flashcards from the All Cards view before starting a study session.'}

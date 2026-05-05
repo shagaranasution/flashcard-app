@@ -15,7 +15,7 @@ export function StudyActions({
   const isMastered = knownCount >= 5;
 
   return (
-    <div className="flex flex-col gap-3 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex flex-col gap-3 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-brown-950/10 sm:flex-row sm:items-center sm:justify-between">
       <div className="w-full sm:max-w-xs">
         <ProgressBar
           value={knownCount}

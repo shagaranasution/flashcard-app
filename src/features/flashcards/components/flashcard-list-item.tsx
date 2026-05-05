@@ -14,24 +14,24 @@ export function FlashcardListItem({
   onDelete,
 }: FlashcardListItemProps) {
   return (
-    <article className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
+    <article className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-brown-950/10 transition hover:-translate-y-0.5 hover:shadow-md">
       <div className="flex items-center justify-between gap-3">
-        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
+        <span className="rounded-full bg-yellow-500 px-3 py-1 text-xs font-bold text-brown-950">
           {flashcard.category}
         </span>
 
-        <span className="text-xs font-semibold text-slate-500">
+        <span className="text-xs font-bold text-brown-700">
           {flashcard.knownCount === 5
             ? 'Mastered'
             : `${flashcard.knownCount}/5`}
         </span>
       </div>
 
-      <h3 className="mt-4 line-clamp-3 text-base font-bold text-slate-950">
+      <h3 className="mt-4 line-clamp-3 text-base font-bold text-brown-950">
         {flashcard.question}
       </h3>
 
-      <p className="mt-3 line-clamp-3 text-sm text-slate-600">
+      <p className="mt-3 line-clamp-3 text-sm font-medium text-brown-700">
         {flashcard.answer}
       </p>
 
@@ -51,7 +51,7 @@ export function FlashcardListItem({
 
         <Button
           variant="ghost"
-          className="flex-1 text-red-600 hover:bg-red-50"
+          className="flex-1 text-pink-700 hover:bg-pink-700/10"
           onClick={() => onDelete(flashcard)}>
           Delete
         </Button>

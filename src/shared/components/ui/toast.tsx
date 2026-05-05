@@ -14,7 +14,7 @@ export function ToastViewport({ toasts, onDismiss }: ToastViewportProps) {
       {toasts.map((toast) => (
         <div
           key={toast.id}
-          className="rounded-2xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white shadow-lg">
+          className="rounded-2xl bg-brown-950 px-4 py-3 text-sm font-bold text-white shadow-lg">
           <div className="flex items-start justify-between gap-4">
             <p>{toast.message}</p>
 

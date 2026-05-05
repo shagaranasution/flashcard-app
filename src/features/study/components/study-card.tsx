@@ -16,7 +16,7 @@ export function StudyCard({
     <button
       type="button"
       onClick={onToggleAnswer}
-      className="group min-h-112 w-full rounded-3xl text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900"
+      className="group min-h-112 w-full rounded-3xl text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brown-950"
       aria-label={isAnswerVisible ? 'Show question' : 'Reveal answer'}
       aria-pressed={isAnswerVisible}>
       <div className="relative perspective-distant">
@@ -67,34 +67,34 @@ function CardFace({
   return (
     <div
       className={[
-        'flex min-h-112 flex-col rounded-3xl bg-white p-8 shadow-sm ring-1 ring-slate-200 overflow-hidden',
+        'flex min-h-112 flex-col overflow-hidden rounded-3xl bg-white p-8 shadow-sm ring-1 ring-brown-950/10',
         'transition group-hover:-translate-y-0.5 group-hover:shadow-md',
         'backface-hidden',
         className,
       ].join(' ')}>
       <div className="flex items-center justify-between gap-3">
-        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
+        <span className="rounded-full bg-yellow-500 px-3 py-1 text-xs font-bold text-brown-950">
           {category}
         </span>
 
-        <span className="text-xs font-semibold text-slate-500">
+        <span className="text-xs font-bold text-brown-700">
           {knownCount === 5 ? 'Mastered' : `${knownCount}/5`}
         </span>
       </div>
 
       <div className="mt-10 max-h-72 flex-1 overflow-auto pr-2">
-        <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+        <p className="text-sm font-bold uppercase tracking-wide text-brown-700">
           {label}
         </p>
 
-        <p className="mt-4 text-2xl font-bold leading-relaxed text-slate-950">
+        <p className="mt-4 text-2xl font-bold leading-relaxed text-brown-950">
           {text}
         </p>
       </div>
 
       <ProgressBar value={knownCount} label="Mastery" className="mt-8" />
 
-      <p className="mt-6 text-sm font-semibold text-slate-500">{helperText}</p>
+      <p className="mt-6 text-sm font-bold text-brown-700">{helperText}</p>
     </div>
   );
 }

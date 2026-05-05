@@ -63,13 +63,13 @@ export function ConfirmDialog({
         onMouseDown={(event) => event.stopPropagation()}>
         <h2
           id="confirm-dialog-title"
-          className="text-xl font-bold text-slate-950">
+          className="text-xl font-bold text-brown-950">
           {title}
         </h2>
 
         <p
           id="confirm-dialog-description"
-          className="mt-2 text-sm text-slate-600">
+          className="mt-2 text-sm font-medium text-brown-700">
           {description}
         </p>
 

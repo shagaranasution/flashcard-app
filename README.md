@@ -1,73 +1,129 @@
-# React + TypeScript + Vite
+# Flashcard App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive flashcard web application built with React, TypeScript, Vite, and Tailwind CSS.
 
-Currently, two official plugins are available:
+This project was developed as a solution to the Flashcard App challenge from Frontend Mentor.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Overview
 
-## React Compiler
+The app allows users to create, edit, delete, filter, and study flashcards in an interactive study mode. User progress is persisted locally in the browser using localStorage.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+- Create, edit, and delete flashcards
+- Study Mode with flip interaction
+- Progress tracking and mastery system
+- Category filtering
+- Hide mastered cards
+- Shuffle study cards
+- Keyboard shortcuts support
+- Responsive layouts for mobile, tablet, and desktop
+- Local persistence using browser localStorage
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Screenshots
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Study Mode — Desktop
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+![Study Mode Desktop](./public/screenshots/study-desktop.png)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Study Mode — Mobile
+
+![Study Mode Mobile](./public/screenshots/study-mobile.png)
+
+### All Cards — Desktop
+
+![All Cards Desktop](./public/screenshots/all-cards-desktop.png)
+
+## Tech Stack
+
+- React
+- TypeScript
+- Vite
+- Tailwind CSS v4
+
+## Project Structure
+
+```txt
+src/
+├── features/
+├── shared/
+├── app/
+└── main.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Architecture Notes
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+The project uses a feature-based folder structure to separate concerns by domain.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Examples:
+
+- `features/study`
+- `features/flashcards`
+- `features/filters`
+- `features/statistics`
+
+Reusable UI components and utilities are placed inside `shared`.
+
+## State Management
+
+Flashcard state is managed using React reducers and persisted to localStorage.
+
+The reducer handles:
+
+- create
+- update
+- delete
+- progress updates
+- reset progress
+
+## Study Mode
+
+Study Mode includes:
+
+- flip-card interaction
+- category filtering
+- hide mastered cards
+- shuffle mode
+- keyboard shortcuts
+
+Keyboard shortcuts:
+
+- `Space` → reveal/hide answer
+- `Arrow Left` → previous card
+- `Arrow Right` → next card
+
+## Accessibility Considerations
+
+The project includes:
+
+- semantic HTML structure
+- keyboard interaction support
+- focus-visible states
+- accessible button labels
+- modal focus management
+
+## Getting Started
+
+### Install dependencies
+
+```bash
+npm install
 ```
+
+### Run development server
+
+```bash
+npm run dev
+```
+
+### Build for production
+
+```bash
+npm run build
+```
+
+## Live Demo
+
+## Author
+
+Built by Shagara.

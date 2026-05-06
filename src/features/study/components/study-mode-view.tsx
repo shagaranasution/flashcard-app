@@ -127,7 +127,7 @@ export function StudyModeView({ flashcards, dispatch }: StudyModeViewProps) {
   );
 
   return (
-    <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start">
+    <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem] xl:grid-cols-[minmax(0,1fr)_22rem] lg:items-start">
       <div className="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-brown-950/10">
         <StudyToolbar
           categories={categories}
@@ -157,21 +157,23 @@ export function StudyModeView({ flashcards, dispatch }: StudyModeViewProps) {
           </div>
         ) : (
           <>
-            <StudyCard
-              flashcard={currentCard}
-              isAnswerVisible={isAnswerVisible}
-              onToggleAnswer={() => setIsAnswerVisible((value) => !value)}
-            />
+            <div className="flex flex-col gap-4 py-4">
+              <StudyCard
+                flashcard={currentCard}
+                isAnswerVisible={isAnswerVisible}
+                onToggleAnswer={() => setIsAnswerVisible((value) => !value)}
+              />
 
-            <div className="border-t border-brown-950/10" />
-
-            <div className="grid gap-4 p-4 sm:p-6 sm:grid-cols-[1fr_auto] sm:items-center">
               <StudyActions
                 knownCount={currentCard.knownCount}
                 onKnowThis={handleKnowThis}
                 onResetProgress={handleResetProgress}
               />
+            </div>
 
+            <div className="border-t border-brown-950/10" />
+
+            <div className="flex flex-row w-full justify-between px-6 py-4">
               <StudyNavigation
                 currentIndex={currentIndex}
                 totalCards={studyCards.length}

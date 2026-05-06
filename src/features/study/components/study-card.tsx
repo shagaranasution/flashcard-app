@@ -16,7 +16,7 @@ export function StudyCard({
     <button
       type="button"
       onClick={onToggleAnswer}
-      className="group min-h-112 w-full rounded-3xl text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brown-950"
+      className="group w-full min-h-112 px-6 rounded-3xl text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brown-950"
       aria-label={isAnswerVisible ? 'Show question' : 'Reveal answer'}
       aria-pressed={isAnswerVisible}>
       <div className="relative perspective-distant">
@@ -71,7 +71,7 @@ function CardFace({
   return (
     <div
       className={[
-        'flex min-h-104 flex-col overflow-hidden p-6 sm:p-8 lg:min-h-120',
+        'flex min-h-104 flex-col overflow-hidden rounded-xl p-6 sm:p-8 lg:min-h-120',
         tone === 'question' ? 'bg-pink-400' : 'bg-blue-400',
         'backface-hidden',
         className,
@@ -82,12 +82,12 @@ function CardFace({
         </span>
       </div>
 
-      <div className="mt-10 max-h-72 flex-1 overflow-auto pr-2">
-        <p className="text-sm font-bold uppercase tracking-wide text-brown-700">
+      <div className="flex flex-1 flex-col items-center justify-center overflow-auto px-2 py-10 text-center">
+        <p className="text-sm font-bold uppercase tracking-[0.2em] text-brown-700">
           {label}
         </p>
 
-        <p className="mt-4 max-w-3xl text-3xl font-bold leading-tight text-brown-950 sm:text-4xl lg:text-5xl">
+        <p className="mt-5 max-w-3xl text-3xl font-bold leading-tight text-brown-950 sm:text-4xl lg:text-5xl">
           {text}
         </p>
       </div>

@@ -27,7 +27,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           variant === 'danger' &&
             'bg-pink-700 text-white hover:brightness-95 focus-visible:outline-pink-700',
           variant === 'ghost' &&
-            'bg-transparent text-brown-700 hover:bg-cream-100 focus-visible:outline-brown-700',
+            'bg-transparent text-brown-700 ring-1 ring-brown-950/30 hover:bg-cream-100 focus-visible:outline-brown-700',
           className
         )}
         {...props}

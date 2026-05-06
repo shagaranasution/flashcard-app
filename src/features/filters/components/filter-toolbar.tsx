@@ -1,5 +1,5 @@
 import type { CategoryCount } from '../utils/filter-utils';
-import { CategoryFileDropdown } from './category-filter-dropdown';
+import { CategoryFilterDropdown } from './category-filter-dropdown';
 
 interface FilterToolbarProps {
   categories: CategoryCount[];
@@ -39,7 +39,7 @@ export function FilterToolbar({
             Hide mastered cards
           </label>
 
-          <CategoryFileDropdown
+          <CategoryFilterDropdown
             categories={categories}
             selectedCategories={selectedCategories}
             onToggleCategory={onToggleCategory}

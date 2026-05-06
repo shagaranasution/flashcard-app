@@ -14,7 +14,7 @@ export function StudyNavigation({
   onNext,
 }: StudyNavigationProps) {
   return (
-    <div className="flex flex-row gap-3 justify-content-between items-center">
+    <div className="flex flex-row w-full justify-between items-center gap-3">
       <Button
         variant="secondary"
         onClick={onPrevious}
@@ -23,7 +23,7 @@ export function StudyNavigation({
         Previous
       </Button>
 
-      <p className="flex-10 self-center text-sm font-bold text-center text-brown-700">
+      <p className="flex-3 min-w-24 text-center text-sm font-bold text-brown-700">
         Card {currentIndex + 1} of {totalCards}
       </p>
 

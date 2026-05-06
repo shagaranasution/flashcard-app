@@ -14,13 +14,13 @@ export function StudyActions({
   const isMastered = knownCount >= 5;
 
   return (
-    <div className="flex flex-col gap-3 sm:flex-row">
+    <div className="flex flex-col gap-3 sm:flex-row sm:justify-center px-6">
       <Button onClick={onKnowThis} disabled={isMastered}>
         {isMastered ? 'Mastered' : 'I know this'}
       </Button>
 
       <Button
-        variant="secondary"
+        variant="ghost"
         onClick={onResetProgress}
         disabled={knownCount === 0}>
         Reset Progress

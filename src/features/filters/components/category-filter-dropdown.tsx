@@ -14,7 +14,7 @@ interface CategoryFilterDropdownProps {
   align?: DropdownAlign;
 }
 
-export function CategoryFileDropdown({
+export function CategoryFilterDropdown({
   categories,
   selectedCategories,
   onToggleCategory,
@@ -35,7 +35,7 @@ export function CategoryFileDropdown({
   return (
     <div ref={dropdownRef} className="relative">
       <Button
-        variant="secondary"
+        variant="ghost"
         onClick={() => setIsOpen((current) => !current)}
         aria-expanded={isOpen}>
         {label}

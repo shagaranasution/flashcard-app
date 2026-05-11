@@ -17,7 +17,7 @@ export function Tabs<TValue extends string>({
   onChange,
 }: TabsProps<TValue>) {
   return (
-    <div className="inline-flex rounded-2xl bg-white p-1">
+    <nav className="inline-flex rounded-2xl bg-white p-1">
       {items.map((item) => {
         const isActive = item.value === value;
 
@@ -38,6 +38,6 @@ export function Tabs<TValue extends string>({
           </button>
         );
       })}
-    </div>
+    </nav>
   );
 }

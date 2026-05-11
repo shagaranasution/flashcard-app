@@ -95,7 +95,9 @@ export function AllCardsView({
   };
 
   return (
-    <section className="grid gap-6 lg:grid-cols-[minmax(0,420px)_1fr] lg:items-start">
+    <section
+      aria-labelledby="all-cards-heading"
+      className="grid gap-6 lg:grid-cols-[minmax(0,420px)_1fr] lg:items-start">
       <div className="space-y-6 lg:sticky lg:top-8">
         <FlashcardForm
           editingFlashcard={editingFlashcard}
@@ -123,9 +125,13 @@ export function AllCardsView({
           <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <p className="text-sm font-semibold text-brown-700">All Cards</p>
-              <h2 className="mt-1 text-2xl font-bold text-brown-950">
+
+              <h2
+                id="all-cards-heading"
+                className="mt-1 text-2xl font-bold text-brown-950">
                 Manage your flashcards
               </h2>
+
               <p className="mt-2 max-w-2xl text-sm font-medium text-brown-700">
                 Browse your cards, update details, and keep your study set
                 organized.

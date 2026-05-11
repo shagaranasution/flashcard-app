@@ -23,7 +23,7 @@ export default function App() {
         <header className="mb-6 flex flex-col gap-5 rounded-3xl py-5 text-brown-950 sm:mb-8 sm:py-6 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <h1 className="mt-2 text-3xl font-bold tracking-tight">
-              Flashcard
+              Flashcard App
             </h1>
             <p className="mt-2 max-w-2xl text-sm font-medium text-brown-700">
               Reveal answers, mark what you know, and focus on cards that still

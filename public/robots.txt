@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://flashcard-app-three-sand.vercel.app/sitemap.xml
